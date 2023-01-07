@@ -1,10 +1,19 @@
-import React from 'react'
-import NavBarMenu from '../common/NavBarMenu'
+import React from "react";
+import NavBarMenu from "../common/NavBarMenu";
+import NavigationTop from "../common/NavigationTop";
 
-function DefaultLayout({children}) {
+function DefaultLayout({ children }) {
   return (
-    <><main className=''>{children}</main><header className='fixed w-full bottom-0'><NavBarMenu></NavBarMenu></header></>
-  )
+    <div className="flex flex-col-reverse h-screen sm:flex-row ">
+      <aside className="">
+        <NavBarMenu></NavBarMenu>
+      </aside>
+      <main className="w-full h-full ml-auto overflow-hidden ">
+        <NavigationTop></NavigationTop>
+        <div className="p-4 md:p-6">{children}</div>{" "}
+      </main>
+    </div>
+  );
 }
 
-export default DefaultLayout
+export default DefaultLayout;

@@ -35,7 +35,7 @@ function NavBar() {
     return path == pathname;
   };
   return (
-    <nav className="sm:fixed sm:left-0 sm:top-0 sm:bottom-0  bg-gray-100/10  text-gray-300">
+    <nav className=" sm:h-full  bg-gray-100/10  text-gray-300">
       <ul className="sm:hidden w-full  flex items-center justify-between md:flex-col py-4 sm:py-1.5 px-2 gap-1">
         {links.map((link) => (
           <li
