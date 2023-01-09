@@ -1,16 +1,18 @@
 import React from "react";
 import Avatar from "./Avatar";
 
-function DetailsUser() {
+function DetailsUser({ user }) {
   const stat = [
-    { value: 11, type: "rank" },
-    { value: 29, type: "badges" },
-    { value: 0, type: "followers" },
+    { value: user?.rank || 0, type: "rank" },
+    { value: user?.badges.length, type: "badges" },
+    { value: user?.quizzPoints || 0, type: "quizzPoints" },
   ];
+
+  const {} = user;
   return (
     <div className="h-1/3 flex flex-col items-center gap-4 container mx-auto">
       <Avatar />
-      <span className="font-medium">User name</span>
+      <span className="font-medium">{user?.username || "User Name"}</span>
 
       <div className="w-full flex gap-2">
         {stat.map((v) => (

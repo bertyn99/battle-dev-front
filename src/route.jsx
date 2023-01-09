@@ -6,6 +6,10 @@ import Login from "./page/auth/login";
 import Register from "./page/auth/register";
 import Profile from "./page/profile";
 import RequireAuth from "./components/RequireAuth";
+import { store } from "./store";
+import { userApiSlice } from "./store/api/userApiSlice";
+import History from "./page/history";
+import Board from "./page/board";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,18 +38,42 @@ const router = createBrowserRouter([
       },
       {
         path: "/board",
-        element: <Profile />,
+        element: <Board />,
         loader: null,
       },
       {
         path: "/history",
-        element: <Profile />,
-        loader: null,
+        element: <History />,
+        loader: async () => {
+          const p = store.dispatch(userApiSlice.endpoints.getMyInfo.initiate());
+
+          try {
+            const response = await p.unwrap();
+            return response;
+          } catch (e) {
+            // see https://reactrouter.com/en/main/fetch/redirect
+            return redirect("/login");
+          } finally {
+            p.unsubscribe();
+          }
+        },
       },
       {
         path: "/Profile",
         element: <Profile />,
-        loader: null,
+        loader: async () => {
+          const p = store.dispatch(userApiSlice.endpoints.getMyInfo.initiate());
+
+          try {
+            const response = await p.unwrap();
+            return response;
+          } catch (e) {
+            // see https://reactrouter.com/en/main/fetch/redirect
+            return redirect("/login");
+          } finally {
+            p.unsubscribe();
+          }
+        },
       },
     ],
   },
