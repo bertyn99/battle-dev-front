@@ -8,8 +8,10 @@ import Profile from "./page/profile";
 import RequireAuth from "./components/RequireAuth";
 import { store } from "./store";
 import { userApiSlice } from "./store/api/userApiSlice";
+import { rankApiSlice } from "./store/api/rankApiSlice";
 import History from "./page/history";
 import Board from "./page/board";
+import Ranking from "./page/board/ranking";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,15 +39,26 @@ const router = createBrowserRouter([
         loader: null,
       },
       {
-        path: "/board",
+        path: "/board/*",
         element: <Board />,
-        loader: null,
-      },
-      {
-        path: "/history",
-        element: <History />,
-        loader: async () => {
-          const p = store.dispatch(userApiSlice.endpoints.getMyInfo.initiate());
+        children: [
+          {
+            path: "",
+            element: <Ranking d={"all"} />,
+            loader: null,
+          },
+          {
+            path: ":id",
+            element: <Ranking d={"me"} />,
+            loader: null,
+          },
+        ],
+        /* loader: async () => {
+          const user = store.getState(auth).user;
+          if (user || user._id) return;
+          const p = store.dispatch(
+            rankApiSlice.endpoints.getMyBoard.initiate()
+          );
 
           try {
             const response = await p.unwrap();
@@ -56,7 +69,12 @@ const router = createBrowserRouter([
           } finally {
             p.unsubscribe();
           }
-        },
+        }, */
+      },
+      {
+        path: "/history",
+        element: <History />,
+        loader: null,
       },
       {
         path: "/Profile",
