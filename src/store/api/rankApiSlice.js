@@ -1,31 +1,20 @@
 import { apiSlice } from "./index";
 
-export const userApiSlice = apiSlice.injectEndpoints({
+export const rankApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMyBoard: builder.query({
-      query: () => ({
-        url: `/user/me`,
+      query: (id) => ({
+        url: `/user/${id}/battle`,
         method: "GET",
       }),
     }),
-    getUserInfo: builder.query({
+    getTopBoard: builder.query({
       query: (id) => ({
         url: `/user/${id}`,
         method: "GET",
       }),
     }),
-    updateUserInfo: builder.mutation({
-      query: (id, updateData) => ({
-        url: `/user/${id}`,
-        method: "POST",
-        body: { ...updateData },
-      }),
-    }),
   }),
 });
 
-export const {
-  useGetMyInfoQuery,
-  useGetUserInfoQuery,
-  useUpdateUserInfoMutation,
-} = userApiSlice;
+export const { useGetMyBoardQuery, useGetTopBoardQuery } = rankApiSlice;
