@@ -5,6 +5,7 @@ import { GiBlackBook } from "react-icons/gi";
 import { HiHome, HiUser } from "react-icons/hi";
 import { clsx } from "clsx";
 import { matchRoutes, useLocation } from "react-router-dom";
+import useGetCurrentPath from "../../utils/useGetCurrentPath";
 
 const links = [
   {
@@ -30,9 +31,10 @@ const links = [
 ];
 
 function NavBar() {
-  const { pathname } = useLocation();
-  const isActive = (path) => {
-    return path == pathname;
+  const path = useGetCurrentPath();
+  console.log(path);
+  const isActive = (linkPath) => {
+    return linkPath === path;
   };
   return (
     <nav className=" sm:h-full  bg-gray-100/10  text-gray-300">
@@ -53,7 +55,10 @@ function NavBar() {
                 "inline-flex items-center justify-center text-sm px-2 py-1"
               )}
             >
-              {link.icon(6)} {isActive(link.path) && <span className="transition-all delay-250">{link.text} </span>}
+              {link.icon(6)}{" "}
+              {isActive(link.path) && (
+                <span className="transition-all delay-250">{link.text} </span>
+              )}
             </Link>
           </li>
         ))}
