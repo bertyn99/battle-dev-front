@@ -63,7 +63,7 @@ const router = createBrowserRouter([
             },
           },
           {
-            path: ":id",
+            path: "me",
             element: <Ranking type={"me"} />,
             loader:  async () => {
             
