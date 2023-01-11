@@ -80,17 +80,24 @@ const router = createBrowserRouter([
         path: "/Profile",
         element: <Profile />,
         loader: async () => {
-          const p = store.dispatch(userApiSlice.endpoints.getMyInfo.initiate());
+          const {user} = store.getState().auth;
+         console.log(user)
+          if (user==null) {
+            const p = store.dispatch(
+              userApiSlice.endpoints.getMyInfo.initiate()
+            );
 
-          try {
-            const response = await p.unwrap();
-            return response;
-          } catch (e) {
-            // see https://reactrouter.com/en/main/fetch/redirect
-            return redirect("/login");
-          } finally {
-            p.unsubscribe();
+            try {
+              const response = await p.unwrap();
+              return response;
+            } catch (e) {
+              // see https://reactrouter.com/en/main/fetch/redirect
+              return redirect("/login");
+            } finally {
+              p.unsubscribe();
+            }
           }
+          return null
         },
       },
     ],

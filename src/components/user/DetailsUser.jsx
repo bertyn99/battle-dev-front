@@ -4,7 +4,7 @@ import Avatar from "./Avatar";
 function DetailsUser({ user }) {
   const stat = [
     { value: user?.rank || 0, type: "rank" },
-    { value: user?.badges.length, type: "badges" },
+    { value: user?.badges?.length, type: "badges" },
     { value: user?.quizzPoints || 0, type: "quizzPoints" },
   ];
 

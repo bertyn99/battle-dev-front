@@ -10,8 +10,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(args, { dispatch, queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          dispatch(setCredentials(data));
+          const {
+            data: { user, accessToken },
+          } = await queryFulfilled;
+          dispatch(setCredentials({ user, accessToken }));
         } catch (error) {}
       },
     }),

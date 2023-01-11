@@ -19,7 +19,7 @@ function Profile() {
     <div>
       <DetailsUser user={user} />
 
-      <BadgeList babges={user.badges}></BadgeList>
+      <BadgeList babges={user}></BadgeList>
     </div>
   );
 }

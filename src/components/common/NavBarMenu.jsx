@@ -32,7 +32,6 @@ const links = [
 
 function NavBar() {
   const path = useGetCurrentPath();
-  console.log(path);
   const isActive = (linkPath) => {
     return linkPath === path;
   };

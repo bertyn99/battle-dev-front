@@ -20,9 +20,8 @@ function Login() {
     try {
       const userData = await login(data).unwrap()
       console.log(userData)
-      const {accessToken, ...rest }= userData.data
-   
-      dispatch(setCredentials({ ...rest, accessToken })) 
+      const {accessToken, ...user }= userData.data
+      dispatch(setCredentials({ user, accessToken })) 
       navigate('/home')
     } catch (e) {
         console.log(e)
