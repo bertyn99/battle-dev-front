@@ -44,13 +44,43 @@ const router = createBrowserRouter([
         children: [
           {
             path: "",
-            element: <Ranking d={"all"} />,
-            loader: null,
+            element: <Ranking type={"all"} />,
+            loader:  async () => {
+            
+              const data = store.dispatch(
+                rankApiSlice.endpoints.getTopBoard.initiate()
+              );
+    
+              try {
+                const response = await data.unwrap();
+                return response.data;
+              } catch (e) {
+                // see https://reactrouter.com/en/main/fetch/redirect
+                return redirect("/login");
+              } finally {
+                data.unsubscribe();
+              }
+            },
           },
           {
             path: ":id",
-            element: <Ranking d={"me"} />,
-            loader: null,
+            element: <Ranking type={"me"} />,
+            loader:  async () => {
+            
+              const data = store.dispatch(
+                rankApiSlice.endpoints.getMyBoard.initiate()
+              );
+    
+              try {
+                const response = await data.unwrap();
+                return response.data;
+              } catch (e) {
+                // see https://reactrouter.com/en/main/fetch/redirect
+                return redirect("/login");
+              } finally {
+                data.unsubscribe();
+              }
+            },
           },
         ],
         /* loader: async () => {

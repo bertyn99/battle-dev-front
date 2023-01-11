@@ -3,14 +3,14 @@ import { apiSlice } from "./index";
 export const rankApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMyBoard: builder.query({
-      query: (id) => ({
-        url: `/user/${id}/battle`,
+      query: () => ({
+        url: `/leaderboard/me`,
         method: "GET",
       }),
     }),
     getTopBoard: builder.query({
-      query: (id) => ({
-        url: `/user/${id}`,
+      query: () => ({
+        url: `/leaderboard`,
         method: "GET",
       }),
     }),
