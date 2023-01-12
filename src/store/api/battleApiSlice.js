@@ -8,7 +8,14 @@ export const battleApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    getCategoryBattle: builder.query({
+      query: () => ({
+        url: `/quizz/category`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useGetMyBattleQuery } = battleApiSlice;
+export const { useGetMyBattleQuery, useGetCategoryBattleQuery } =
+  battleApiSlice;

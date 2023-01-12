@@ -37,7 +37,40 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <Home />,
-        loader: null,
+        loader: async () => {
+          const { user } = store.getState().auth;
+
+          if (user == null || user._id == null) {
+            const u = store.dispatch(
+              userApiSlice.endpoints.getMyInfo.initiate()
+            );
+
+            try {
+              const response = await u.unwrap();
+              console.log(response);
+              id = response.user._id;
+            } catch (e) {
+              // see https://reactrouter.com/en/main/fetch/redirect
+              console.log(e);
+            } finally {
+              u.unsubscribe();
+            }
+          }
+
+          const data = store.dispatch(
+            battleApiSlice.endpoints.getCategoryBattle.initiate()
+          );
+
+          try {
+            const response = await data.unwrap();
+            return response;
+          } catch (e) {
+            // see https://reactrouter.com/en/main/fetch/redirect
+            return redirect("/login");
+          } finally {
+            data.unsubscribe();
+          }
+        },
       },
       {
         path: "/board/*",
