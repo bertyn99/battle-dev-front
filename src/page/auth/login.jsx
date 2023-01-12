@@ -1,32 +1,30 @@
 import React from "react";
 import BaseButton from "../../components/common/BaseButton";
 import { useForm } from "react-hook-form";
-import { useLoginMutation } from '../../store/api/authApiSlice'
-import { useNavigate } from 'react-router-dom'
+import { useLoginMutation } from "../../store/api/authApiSlice";
+import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../../store/slice/authSlice";
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux";
 function Login() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation();
   const onSubmit = async (data) => {
-    
     try {
-      const userData = await login(data).unwrap()
-      console.log(userData)
-      const {accessToken, ...user }= userData.data
-      dispatch(setCredentials({ user, accessToken })) 
-      navigate('/home')
+      const userData = await login(data).unwrap();
+      console.log(userData);
+      const { accessToken, ...user } = userData;
+      dispatch(setCredentials({ user, accessToken }));
+      navigate("/home");
     } catch (e) {
-        console.log(e)
+      console.log(e);
     }
-
   };
   return (
     <>
@@ -72,7 +70,9 @@ function Login() {
                     })}
                     className="block w-full appearance-none rounded-md border bg-gray-900/25 border-gray-700 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
-                  <span className="text-white">{errors.email && errors.email.message}</span> 
+                  <span className="text-white">
+                    {errors.email && errors.email.message}
+                  </span>
                 </div>
               </div>
 
@@ -85,16 +85,21 @@ function Login() {
                 </label>
                 <div className="mt-1">
                   <input
-                    {...register("password", { required:  "Required", minLength:2})}
+                    {...register("password", {
+                      required: "Required",
+                      minLength: 2,
+                    })}
                     className="block w-full appearance-none rounded-md border bg-gray-900/25 border-gray-700 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                   />
-                                     <span className="text-white">{errors.password && errors.password.message}</span>
+                  <span className="text-white">
+                    {errors.password && errors.password.message}
+                  </span>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                {/*   <input
+                  {/*   <input
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
