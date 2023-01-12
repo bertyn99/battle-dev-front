@@ -24,7 +24,7 @@ function Ranking({ type }) {
   );
 
   return (
-    <div>
+    <div className="container mx-auto">
       <List
         type="column"
         list={leaderboard}

@@ -5,7 +5,7 @@ import { SlBadge } from "react-icons/sl";
 const list = ["a", "b", "c", "c", "d", "d", "e", "s", "s"];
 function BadgeList({ badges }) {
   return (
-    <div className="mt-3 ">
+    <div className="mt-3 container mx-auto">
       <h2 className="text-center font-medium mb-6">Badges</h2>
       {badges?.length > 0 ? (
         <List list={badges} renderItem={(data) => <Badge data={data} />}></List>

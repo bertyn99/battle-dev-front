@@ -42,7 +42,7 @@ function History() {
   return (
     <div>
       <h2 className="text-center text-xl font-semibold">History</h2>
-      <div>
+      <div className="max-w-2xl mx-auto">
         <List
           type="column"
           list={history}
