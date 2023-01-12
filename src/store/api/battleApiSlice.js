@@ -14,6 +14,13 @@ export const battleApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+
+    getQuestionBattle: builder.query({
+      query: (category = "") => ({
+        url: `/quizz${category}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
