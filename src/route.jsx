@@ -9,6 +9,7 @@ import RequireAuth from "./components/RequireAuth";
 import { store } from "./store";
 import { userApiSlice } from "./store/api/userApiSlice";
 import { rankApiSlice } from "./store/api/rankApiSlice";
+import { battleApiSlice } from "./store/api/battleApiSlice";
 import History from "./page/history";
 import Board from "./page/board";
 import Ranking from "./page/board/ranking";
@@ -45,15 +46,14 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <Ranking type={"all"} />,
-            loader:  async () => {
-            
+            loader: async () => {
               const data = store.dispatch(
                 rankApiSlice.endpoints.getTopBoard.initiate()
               );
-    
+
               try {
                 const response = await data.unwrap();
-                return response.data;
+                return response;
               } catch (e) {
                 // see https://reactrouter.com/en/main/fetch/redirect
                 return redirect("/login");
@@ -65,15 +65,14 @@ const router = createBrowserRouter([
           {
             path: "me",
             element: <Ranking type={"me"} />,
-            loader:  async () => {
-            
+            loader: async () => {
               const data = store.dispatch(
                 rankApiSlice.endpoints.getMyBoard.initiate()
               );
-    
+
               try {
                 const response = await data.unwrap();
-                return response.data;
+                return response;
               } catch (e) {
                 // see https://reactrouter.com/en/main/fetch/redirect
                 return redirect("/login");
@@ -104,15 +103,49 @@ const router = createBrowserRouter([
       {
         path: "/history",
         element: <History />,
-        loader: null,
+        loader: async () => {
+          const { user } = store.getState().auth;
+          let id = user?._id || 0;
+          if (user == null || user._id) {
+            const u = store.dispatch(
+              userApiSlice.endpoints.getMyInfo.initiate()
+            );
+
+            try {
+              const response = await u.unwrap();
+              console.log(response);
+              id = response.user._id;
+            } catch (e) {
+              // see https://reactrouter.com/en/main/fetch/redirect
+              console.log(e);
+            } finally {
+              u.unsubscribe();
+            }
+          }
+          console.log(user);
+
+          const data = store.dispatch(
+            battleApiSlice.endpoints.getMyBattle.initiate(id)
+          );
+
+          try {
+            const response = await data.unwrap();
+            return response;
+          } catch (e) {
+            // see https://reactrouter.com/en/main/fetch/redirect
+            return redirect("/login");
+          } finally {
+            data.unsubscribe();
+          }
+        },
       },
       {
         path: "/Profile",
         element: <Profile />,
         loader: async () => {
-          const {user} = store.getState().auth;
-         console.log(user)
-          if (user==null) {
+          const { user } = store.getState().auth;
+          console.log(user);
+          if (user == null) {
             const p = store.dispatch(
               userApiSlice.endpoints.getMyInfo.initiate()
             );
@@ -127,7 +160,7 @@ const router = createBrowserRouter([
               p.unsubscribe();
             }
           }
-          return null
+          return null;
         },
       },
     ],
