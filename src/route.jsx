@@ -13,6 +13,7 @@ import { battleApiSlice } from "./store/api/battleApiSlice";
 import History from "./page/history";
 import Board from "./page/board";
 import Ranking from "./page/board/ranking";
+import Quizz from "./page/quizz";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +60,31 @@ const router = createBrowserRouter([
 
           const data = store.dispatch(
             battleApiSlice.endpoints.getCategoryBattle.initiate()
+          );
+
+          try {
+            const response = await data.unwrap();
+            return response;
+          } catch (e) {
+            // see https://reactrouter.com/en/main/fetch/redirect
+            return redirect("/login");
+          } finally {
+            data.unsubscribe();
+          }
+        },
+      },
+      {
+        path: "/quizz",
+        element: <Quizz />,
+        loader: async () => {
+          const { category, mode } = store.getState().quizz;
+          console.log(category, mode);
+          let c =
+            category == null && category?.length > 0
+              ? `&category=${category}`
+              : "";
+          const data = store.dispatch(
+            battleApiSlice.endpoints.getQuestionBattle.initiate(c)
           );
 
           try {
