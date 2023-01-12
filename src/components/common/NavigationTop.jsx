@@ -4,6 +4,7 @@ import { BsChevronCompactLeft, BsThreeDotsVertical } from "react-icons/bs";
 import { useLocation } from "react-router-dom";
 const titleMap = [
   { path: "/home", title: "Home" },
+  { path: "/quizz", title: "Quizz" },
   { path: "/board", title: "LeaderBoard" },
   { path: "/board/me", title: "LeaderBoard" },
   { path: "/profile", title: "Profile" },
