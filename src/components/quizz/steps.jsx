@@ -13,7 +13,7 @@ function Steps({ nbStep, actualStep }) {
   return (
     <div className="flex justify-around w-full">
       {a.map((i) => (
-        <Step number={i + 1} />
+        <Step number={i + 1} key={i} />
       ))}
     </div>
   );

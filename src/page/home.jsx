@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BaseButton from "../components/common/BaseButton";
 import Selector from "../components/common/Selector";
 import { useLoaderData } from "react-router-dom";
@@ -12,9 +12,13 @@ function Home() {
   const [mode, setMode] = useState("");
   const dispatch = useDispatch();
   const isActive = (text) => mode == text;
+  useEffect(() => {
+    console.log(category.filter((c) => c.id == selectedCat));
+  }, [selectedCat]);
 
   const play = () => {
-    dispatch(setQuizz({ mode, category: selectedCat }));
+    let arrFilter = category.filter((c) => c.id == selectedCat);
+    dispatch(setQuizz({ mode, category: arrFilter[0] }));
     navigate("/quizz");
   };
   return (

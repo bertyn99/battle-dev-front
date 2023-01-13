@@ -81,10 +81,11 @@ const router = createBrowserRouter([
         element: <Quizz />,
         loader: async () => {
           const { category, mode } = store.getState().quizz;
-          console.log(category, mode);
+          console.log(category?.id, mode);
+
           let c =
-            category == null && category?.length > 0
-              ? `&category=${category}`
+            category == null && category?.id?.length > 0
+              ? `&category=${category?.id}`
               : "";
           const data = store.dispatch(
             battleApiSlice.endpoints.getQuestionBattle.initiate(c)

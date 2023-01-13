@@ -17,7 +17,7 @@ function Result() {
       </div>
       <BsTrophyFill className="h-36 w-36 text-indigo-500" />
       <span className="text-bold text-xl">Mode: {mode}</span>
-      <span className="text-bold text-xl">Category: {category}</span>
+      <span className="text-bold text-xl">Category: {category.name}</span>
       <span className="text-bold text-xl">Score: {score}/10</span>
       <BaseButton onClick={() => navigate("/home")}>Go to Home</BaseButton>
     </div>

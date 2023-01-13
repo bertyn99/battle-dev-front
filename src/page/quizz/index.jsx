@@ -12,28 +12,40 @@ import { addScore } from "../../store/slice/quizzSlice";
 function Quizz() {
   const data = useLoaderData();
   const navigate = useNavigate();
-  console.log(data);
+  /*   console.log(data); */
   const questionsManager = useQuestions(data);
   const [currentAnswers, setCurrentAnswers] = useState(null);
-  const [answers, setAnswers] = useState(
-    useShuffleAnswer(questionsManager.currentQuestion)
-  );
+  const [answers, setAnswers] = useState([]);
   const dispatch = useDispatch();
-
+  /*   console.log(questionsManager.currentQuestion);
   console.log(questionsManager.currentQuestion.correct_answer);
-  console.log(questionsManager.index);
+  console.log(questionsManager.index); */
 
   const goToNextQuestion = () => {
     questionsManager.next();
-    setAnswers(useShuffleAnswer(questionsManager.currentQuestion));
     setCurrentAnswers(null);
     if (currentAnswers == questionsManager.currentQuestion.correct_answer) {
       dispatch(addScore());
     }
   };
+
+  const goToScore = () => {
+    setCurrentAnswers(null);
+    if (currentAnswers == questionsManager.currentQuestion.correct_answer) {
+      dispatch(addScore());
+    }
+    navigate("/quizz/result");
+  };
+
   useEffect(() => {
-    return () => {};
-  }, []);
+    console.log(answers);
+  }, [answers]);
+  useEffect(() => {
+    if (questionsManager.index < 10) {
+      console.log("page index:", questionsManager.index);
+      setAnswers([...useShuffleAnswer(questionsManager.currentQuestion)]);
+    }
+  }, [questionsManager.currentQuestion]);
 
   return (
     <div className=" max-w-2xl h-full mx-auto px-4 flex flex-col gap-12 ">
@@ -50,17 +62,18 @@ function Quizz() {
         </h2>
       </div>
       <div className="grid grid-cols-2 gap-2 ">
-        {answers.map((answer) => (
+        {answers.map((answer, i) => (
           <Response
             text={answer}
             currentAnswers={currentAnswers}
             correctAnswer={questionsManager.currentQuestion.correct_answer}
             setCurrentAnswers={setCurrentAnswers}
+            key={i}
           />
         ))}
       </div>
       <div className="flex flex-col gap-2">
-        {questionsManager.index < 10 && (
+        {questionsManager.index < 9 && (
           <>
             <BaseButton onClick={goToNextQuestion}>Next</BaseButton>
             <BaseButton
@@ -71,10 +84,8 @@ function Quizz() {
             </BaseButton>
           </>
         )}
-        {questionsManager.index == 10 && (
-          <BaseButton onClick={() => navigate("/quizz/score")}>
-            Finish
-          </BaseButton>
+        {questionsManager.index == 9 && (
+          <BaseButton onClick={goToScore}>Finish</BaseButton>
         )}{" "}
       </div>
     </div>
