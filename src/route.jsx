@@ -84,15 +84,17 @@ const router = createBrowserRouter([
           console.log(category?.id, mode);
 
           let c =
-            category == null && category?.id?.length > 0
-              ? `&category=${category?.id}`
+            category !== null && category?.id !== null
+              ? `?category=${category?.id}`
               : "";
+          console.log(c);
           const data = store.dispatch(
             battleApiSlice.endpoints.getQuestionBattle.initiate(c)
           );
 
           try {
             const response = await data.unwrap();
+            console.log(response);
             return response;
           } catch (e) {
             // see https://reactrouter.com/en/main/fetch/redirect
