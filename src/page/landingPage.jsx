@@ -79,8 +79,10 @@ function LandingPage() {
           </p>
         </div>
       </div>
-
-      <BaseButton>Get Started</BaseButton>
+      <Link to={"/home"} className="w-full">
+        {" "}
+        <BaseButton>Get Started</BaseButton>
+      </Link>
     </div>
   );
 }
