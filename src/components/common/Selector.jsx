@@ -1,14 +1,12 @@
 import clsx from "clsx";
 import React, { useState } from "react";
 
-function Selector({ list = [] }) {
-  const [selected, setSelected] = useState("");
+function Selector({ list = [], selected, setSelected }) {
   return (
     <div className="w-full text-white font-medium  my-4">
       <select
         name="category"
-        id=""
-        value={selected}
+        id="category"
         className={clsx(
           "block w-full cursor-default rounded-md border border-transparent bg-gray-100/5",
           " capitalize py-2 pl-3 pr-10 text-left shadow-sm",
@@ -25,8 +23,15 @@ function Selector({ list = [] }) {
         >
           Select Food, Cinema...
         </option>
+        <option
+          value=""
+          className=" hover:bg-red-500 py-4 pl-8 pr-4 text-black capitalize"
+        >
+          All Categories
+        </option>
         {list.map((v) => (
           <option
+            key={v.id}
             value={v.id}
             className=" hover:bg-red-500 py-4 pl-8 pr-4 text-black capitalize"
           >

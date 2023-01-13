@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 const titleMap = [
   { path: "/home", title: "Home" },
   { path: "/quizz", title: "Quizz" },
+  { path: "/quizz/result", title: "Result" },
   { path: "/board", title: "LeaderBoard" },
   { path: "/board/me", title: "LeaderBoard" },
   { path: "/profile", title: "Profile" },

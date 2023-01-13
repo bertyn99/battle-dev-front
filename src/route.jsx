@@ -14,6 +14,7 @@ import History from "./page/history";
 import Board from "./page/board";
 import Ranking from "./page/board/ranking";
 import Quizz from "./page/quizz";
+import Result from "./page/quizz/result";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -97,6 +98,11 @@ const router = createBrowserRouter([
             data.unsubscribe();
           }
         },
+      },
+      {
+        path: "/quizz/result",
+        element: <Result />,
+        loader: null,
       },
       {
         path: "/board/*",

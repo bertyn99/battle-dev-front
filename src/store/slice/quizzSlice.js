@@ -2,7 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const quizzSlice = createSlice({
   name: "quizz",
-  initialState: { category: null, mode: null, room: null, opponent: null },
+  initialState: {
+    category: null,
+    mode: null,
+    room: null,
+    opponent: null,
+    score: 0,
+  },
   reducers: {
     setQuizz: (state, action) => {
       const { category, mode, room, opponent } = action.payload;
@@ -10,6 +16,9 @@ const quizzSlice = createSlice({
       state.mode = mode;
       state.room = mode == "solo" ? null : room;
       state.opponent = mode == "solo" ? null : opponent;
+    },
+    addScore: (state) => {
+      state.score += 1;
     },
     quizzDone: (state, action) => {
       state.category = null;
@@ -20,6 +29,6 @@ const quizzSlice = createSlice({
   },
 });
 
-export const { setQuizz, quizzDone } = quizzSlice.actions;
+export const { setQuizz, quizzDone, addScore } = quizzSlice.actions;
 
 export default quizzSlice.reducer;
