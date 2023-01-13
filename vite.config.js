@@ -15,6 +15,27 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       VitePWA({
+        includeAssets: ["battle.svg"],
+        manifest: {
+          name: "Battle Quizz",
+          short_name: "BQ",
+          description: "Battle Quizz fight with quizz fan",
+          theme_color: "#2b3262",
+          background_color: "#2b3262",
+          icons: [
+            {
+              src: "/ios/192.png",
+              sizes: "192x192",
+              type: "image/png",
+            },
+            {
+              src: "/ios/512.png",
+              sizes: "512x512",
+              type: "image/png",
+            },
+          ],
+        },
+        injectRegister: "auto",
         devOptions: {
           enabled: true,
           /* other options */
