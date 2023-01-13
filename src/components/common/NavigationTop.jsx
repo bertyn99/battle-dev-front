@@ -6,6 +6,7 @@ const titleMap = [
   { path: "/home", title: "Home" },
   { path: "/quizz", title: "Quizz" },
   { path: "/quizz/result", title: "Result" },
+  { path: "/history", title: "History" },
   { path: "/board", title: "LeaderBoard" },
   { path: "/board/me", title: "LeaderBoard" },
   { path: "/profile", title: "Profile" },

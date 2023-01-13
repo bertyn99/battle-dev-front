@@ -80,7 +80,6 @@ function LandingPage() {
         </div>
       </div>
       <Link to={"/home"} className="w-full">
-        {" "}
         <BaseButton>Get Started</BaseButton>
       </Link>
     </div>
