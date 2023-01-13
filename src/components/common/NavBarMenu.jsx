@@ -46,7 +46,7 @@ function NavBar() {
               isActive(link.path) &&
                 "w-1/3 text-gray-200 font-medium bg-gradient-to-r from-indigo-600 to-pink-600"
             )}
-            key={link.text}
+            key={link.text.toLocaleLowerCase()}
           >
             <Link
               to={link.path}
@@ -66,7 +66,7 @@ function NavBar() {
       {/*  desktop menu */}
       <ul className="hidden sm:block w-20 h-full hover:w-40 pt-6 px-2 transition-all delay-150 group">
         {links.map((link) => (
-          <Link to={link.path}>
+          <Link to={link.path} key={link.text.toLocaleLowerCase()}>
             <li
               className={clsx(
                 "w-full  inline-flex items-center justify-center group-hover:gap-x-4  rounded-md mt-7  py-2 transition-all delay-350  text-gray-200 font-medium",
@@ -74,7 +74,6 @@ function NavBar() {
                 isActive(link.path) &&
                   " bg-gradient-to-r from-indigo-600 to-pink-600"
               )}
-              key={link.text}
             >
               {link.icon(8)}
               <span className="hidden group-hover:block transition-all delay-250">

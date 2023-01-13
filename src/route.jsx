@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, redirect } from "react-router-dom";
 
 import LandingPage from "./page/landingPage";
 import Home from "./page/home";
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         element: <Home />,
         loader: async () => {
           const { user } = store.getState().auth;
-
+          let id = user?._id || 0;
           if (user == null || user._id == null) {
             const u = store.dispatch(
               userApiSlice.endpoints.getMyInfo.initiate()
@@ -54,6 +54,7 @@ const router = createBrowserRouter([
             } catch (e) {
               // see https://reactrouter.com/en/main/fetch/redirect
               console.log(e);
+              return redirect("/signin");
             } finally {
               u.unsubscribe();
             }
@@ -67,8 +68,9 @@ const router = createBrowserRouter([
             const response = await data.unwrap();
             return response;
           } catch (e) {
+            console.error(e);
             // see https://reactrouter.com/en/main/fetch/redirect
-            return redirect("/login");
+            return null;
           } finally {
             data.unsubscribe();
           }
@@ -93,7 +95,7 @@ const router = createBrowserRouter([
             return response;
           } catch (e) {
             // see https://reactrouter.com/en/main/fetch/redirect
-            return redirect("/login");
+            return redirect("/signin");
           } finally {
             data.unsubscribe();
           }
@@ -121,7 +123,7 @@ const router = createBrowserRouter([
                 return response;
               } catch (e) {
                 // see https://reactrouter.com/en/main/fetch/redirect
-                return redirect("/login");
+                return redirect("/signin");
               } finally {
                 data.unsubscribe();
               }
@@ -140,30 +142,13 @@ const router = createBrowserRouter([
                 return response;
               } catch (e) {
                 // see https://reactrouter.com/en/main/fetch/redirect
-                return redirect("/login");
+                return redirect("/signin");
               } finally {
                 data.unsubscribe();
               }
             },
           },
         ],
-        /* loader: async () => {
-          const user = store.getState(auth).user;
-          if (user || user._id) return;
-          const p = store.dispatch(
-            rankApiSlice.endpoints.getMyBoard.initiate()
-          );
-
-          try {
-            const response = await p.unwrap();
-            return response;
-          } catch (e) {
-            // see https://reactrouter.com/en/main/fetch/redirect
-            return redirect("/login");
-          } finally {
-            p.unsubscribe();
-          }
-        }, */
       },
       {
         path: "/history",
@@ -183,6 +168,7 @@ const router = createBrowserRouter([
             } catch (e) {
               // see https://reactrouter.com/en/main/fetch/redirect
               console.log(e);
+              return redirect("/signin");
             } finally {
               u.unsubscribe();
             }
@@ -198,7 +184,7 @@ const router = createBrowserRouter([
             return response;
           } catch (e) {
             // see https://reactrouter.com/en/main/fetch/redirect
-            return redirect("/login");
+            return redirect("/signin");
           } finally {
             data.unsubscribe();
           }
@@ -209,7 +195,6 @@ const router = createBrowserRouter([
         element: <Profile />,
         loader: async () => {
           const { user } = store.getState().auth;
-          console.log(user);
           if (user == null) {
             const p = store.dispatch(
               userApiSlice.endpoints.getMyInfo.initiate()
@@ -220,7 +205,7 @@ const router = createBrowserRouter([
               return response;
             } catch (e) {
               // see https://reactrouter.com/en/main/fetch/redirect
-              return redirect("/login");
+              return redirect("/signin");
             } finally {
               p.unsubscribe();
             }

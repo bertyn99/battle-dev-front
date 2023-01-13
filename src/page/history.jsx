@@ -9,8 +9,6 @@ function History() {
   const history = useLoaderData();
   const user = useSelector(selectCurrentUser);
   const isWon = (winnerId) => {
-    console.log(user._id);
-    console.log(winnerId);
     return user._id == winnerId;
   };
   const Battle = ({ data }) => (

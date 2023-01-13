@@ -29,15 +29,16 @@ function Selector({ list = [], selected, setSelected }) {
         >
           All Categories
         </option>
-        {list.map((v) => (
-          <option
-            key={v.id}
-            value={v.id}
-            className=" hover:bg-red-500 py-4 pl-8 pr-4 text-black capitalize"
-          >
-            {v.name}
-          </option>
-        ))}
+        {list &&
+          list.map((v) => (
+            <option
+              key={v.id}
+              value={v.id}
+              className=" hover:bg-red-500 py-4 pl-8 pr-4 text-black capitalize"
+            >
+              {v.name}
+            </option>
+          ))}
       </select>
     </div>
   );
