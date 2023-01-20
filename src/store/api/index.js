@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { setCredentials, logOut } from "../slice/authSlice";
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://back-battle-dev.onrender.com/api",
+  baseUrl: "/api",
   /*    mode: 'cors',
     headers: {
       'Access-Control-Allow-Origin':'*'
