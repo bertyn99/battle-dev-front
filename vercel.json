@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path(.*)",
-      "destination": "https://back-battle-dev.onrender.com/:path"
+      "destination": "https://back-battle-dev.onrender.com/api/:path"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
