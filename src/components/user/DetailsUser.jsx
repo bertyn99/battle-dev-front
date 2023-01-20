@@ -12,6 +12,7 @@ function DetailsUser({ user }) {
   return (
     <div className="h-1/3 flex flex-col items-center gap-4 container mx-auto">
       <Avatar url={user.avatar} />
+
       <span className="font-medium">{user?.username || "User Name"}</span>
 
       <div className="w-full flex gap-2">

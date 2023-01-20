@@ -20,14 +20,14 @@ function History() {
     >
       <div className="flex items-center gap-2">
         <div className="flex flex-col items-center">
-          <Avatar size={"xs"} />
+          <Avatar size={"xs"} url={data.idOpponents[0].avatar} />
           <span className=" text-sm font-medium">
             {data.idOpponents[0].username}
           </span>
         </div>
         <span>VS</span>
         <div className="flex flex-col items-center">
-          <Avatar size={"xs"} />
+          <Avatar size={"xs"} url={data.idOpponents[1].avatar} />
           <span className=" text-sm font-medium">
             {data.idOpponents[1].username}
           </span>

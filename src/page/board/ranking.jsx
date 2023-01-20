@@ -16,7 +16,7 @@ function Ranking({ type }) {
         isUser(data.username) && "border border-white"
       )}
     >
-      <Avatar size={"xs"} />
+      <Avatar size={"xs"} url={data.avatar} />
       <span className="font-medium">{data.username}</span>
 
       <span>{data.quizzPoints}</span>
