@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/api/*",
+      "source": "/api/:path",
       "destination": "https://back-battle-dev.onrender.com"
     },
     { "source": "/(.*)", "destination": "/index.html" }
